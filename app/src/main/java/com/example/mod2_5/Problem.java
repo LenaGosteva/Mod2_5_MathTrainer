@@ -15,12 +15,13 @@ public class Problem {
         return result;
     }
     public float getNotResult() {
-        return result + getRandom(-9, 9);
+        return result + getRandom(-9, -2)/getRandom(8, 10);
     }
 
     public String getProblem() {
         int a = getRandom(-50, 50);
-        int b = getRandom( - 50, 50);
+        int b = getRandom( -50, 50);
+        int c = getRandom(-50,50);
         String sign;
         switch (getRandom(0, 2)){
             case 1:
@@ -46,7 +47,7 @@ public class Problem {
                 result = a * b;
                 break;
         }
-        return a + " "+sign +" "+ b + " =";
+        return a + " "+ sign +" "+ b + " =";
     }
     private String getRandomSign() {
         return random.nextBoolean() ? "-" : "+";

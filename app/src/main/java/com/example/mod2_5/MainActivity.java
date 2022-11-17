@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     boolean fl;
-
+    int counter =3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         fl = false;
@@ -46,23 +46,33 @@ public class MainActivity extends AppCompatActivity {
 
         int pos = problem.getRandom(1, 4);
         binding.problem.setText(problem.getProblem());
+        float a = problem.getNotResult();
+        float b = problem.getNotResult();
+        if (a != problem.getResult() && a == b){
+            b = a + problem.getRandom(-10, 10);
+            if (b == problem.getResult()) b = b - problem.getRandom(-21, -11);
+        }
+        if (a == problem.getResult() && a == b){
+            a = a + problem.getRandom(-10, 10);
+            if (b == problem.getResult()) b = b - problem.getRandom(-21, -11);
+        }
 
         switch (pos){
             case 1:
                 binding.text1.setText(String.format("%.2f", problem.getResult()));
-                binding.text.setText(String.format("%.2f", problem.getNotResult()));
-                binding.text2.setText(String.format("%.2f", problem.getNotResult()));
+                binding.text.setText(String.format("%.2f", a));
+                binding.text2.setText(String.format("%.2f", b));
                 break;
             case 2:
 
                 binding.text2.setText(String.format("%.2f", problem.getResult()));
-                binding.text1.setText(String.format("%.2f", problem.getNotResult()));
-                binding.text.setText(String.format("%.2f", problem.getNotResult()));
+                binding.text1.setText(String.format("%.2f", b));
+                binding.text.setText(String.format("%.2f", a));
                 break;
             case 3:
                 binding.text.setText(String.format("%.2f", problem.getResult()));
-                binding.text1.setText(String.format("%.2f", problem.getNotResult()));
-                binding.text2.setText(String.format("%.2f", problem.getNotResult()));
+                binding.text1.setText(String.format("%.2f", a));
+                binding.text2.setText(String.format("%.2f", b));
                 break;
         }
     }
@@ -79,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         binding.text1.setBackground(getDrawable(button));
                         binding.text2.setBackground(getDrawable(button));
                         gener();
+                        counter = 3;
                     }
                     else{
                         Toast.makeText(MainActivity.this, "Вы не можете нажать эту кнопку, введите ответ!", Toast.LENGTH_SHORT).show();
@@ -91,20 +102,27 @@ public class MainActivity extends AppCompatActivity {
                     if(text.equals(String.format("%.2f",problem.getResult()))){
                         view.setBackground(getDrawable(truec));
                         fl = true;
-                        Toast.makeText(MainActivity.this, "Супер! \n Жмите кнопку 'дальше'", Toast.LENGTH_SHORT).show();
                     }else{
                         view.setBackground(getDrawable(wrong));
                         fl = false;
-                        Toast.makeText(MainActivity.this, "Подумайте еще!", Toast.LENGTH_SHORT).show();
+
+                        counter--;
+                        if (counter>0){
+                            Toast.makeText(MainActivity.this, "У Вас осталось "+ counter+" попыток", Toast.LENGTH_SHORT).show();
+                        }
+                        if (counter==0){
+                            Toast.makeText(MainActivity.this, "У Вас кончились жизни \n Попробуйте другой пример", Toast.LENGTH_SHORT).show();
+                            gener();
+                        }
                         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-                        executorService.scheduleAtFixedRate(new Runnable() {
+                        executorService.schedule(new Runnable() {
                             @Override
                             public void run() {
                                 binding.text.setBackground(getDrawable(button));
                                 binding.text1.setBackground(getDrawable(button));
                                 binding.text2.setBackground(getDrawable(button));
                             }
-                        }, 3, 1, TimeUnit.SECONDS);
+                        }, 1, TimeUnit.SECONDS);
                     }
 
 
