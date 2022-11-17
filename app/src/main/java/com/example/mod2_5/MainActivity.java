@@ -7,6 +7,7 @@ import static com.example.mod2_5.R.drawable.wrong;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         binding.text2.setOnClickListener(click);
     }
 
+    @SuppressLint("DefaultLocale")
     private void gener(){
 
         int pos = problem.getRandom(1, 4);
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
     class click implements View.OnClickListener{
 
-        @SuppressLint("ResourceAsColor")
+        @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables", "NonConstantResourceId"})
         @Override
         public void onClick(View view){
             switch (view.getId()){
@@ -78,17 +80,21 @@ public class MainActivity extends AppCompatActivity {
                         binding.text2.setBackground(getDrawable(button));
                         gener();
                     }
-
+                    else{
+                        Toast.makeText(MainActivity.this, "Вы не можете нажать эту кнопку, введите ответ!", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.text1:
                 case R.id.text:
                 case R.id.text2:
                     String text =  ((TextView)view).getText().toString();
-                    if(text.equals(String.valueOf(problem.getResult()))){
+                    if(text.equals(String.format("%.2f",problem.getResult()))){
                         view.setBackground(getDrawable(truec));
                         fl = true;
+                        Toast.makeText(MainActivity.this, "Супер! \n Жмите кнопку 'дальше'", Toast.LENGTH_SHORT).show();
                     }else{
                         view.setBackground(getDrawable(wrong));
+                        fl = false;
                         Toast.makeText(MainActivity.this, "Подумайте еще!", Toast.LENGTH_SHORT).show();
                         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
                         executorService.scheduleAtFixedRate(new Runnable() {

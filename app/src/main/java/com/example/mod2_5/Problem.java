@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Problem {
 
-    private int result;
+    private float result;
     private final Random random = new Random();
 
     int getRandom(int min, int max) {
@@ -32,10 +32,20 @@ public class Problem {
             default:
                 return random.nextBoolean() ? getRandomSign() : getRandomSign_sqr();
         }
-        if (sign.equals("+")) result = a + b;
-        else if (sign.equals("-")) result = a - b;
-        else if (sign.equals("/")) result = a / b;
-        else if (sign.equals("*")) result = a * b;
+        switch (sign) {
+            case "+":
+                result = a + b;
+                break;
+            case "-":
+                result = a - b;
+                break;
+            case "/":
+                result = (float) a / b;
+                break;
+            case "*":
+                result = a * b;
+                break;
+        }
         return a + " "+sign +" "+ b + " =";
     }
     private String getRandomSign() {
@@ -46,3 +56,6 @@ public class Problem {
 
     }
 }
+
+
+
