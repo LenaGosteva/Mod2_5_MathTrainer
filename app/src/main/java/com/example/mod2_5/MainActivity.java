@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         float a = problem.getNotResult();
         float b = problem.getNotResult();
         if (a != problem.getResult() && a == b){
-            b = a + problem.getRandom(-10, 10);
-            if (b == problem.getResult()) b = b - problem.getRandom(-21, -11);
+            b = a + problem.getRandom(-10, 0);
+            if (b == problem.getResult()) b = b + problem.getRandom(12, 15);
         }
         if (a == problem.getResult() && a == b){
-            a = a + problem.getRandom(-10, 10);
-            if (b == problem.getResult()) b = b - problem.getRandom(-21, -11);
+            a = a + problem.getRandom(-10, -1);
+            b = b + problem.getRandom(12, 15);
         }
 
         switch (pos){

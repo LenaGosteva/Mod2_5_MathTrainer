@@ -15,7 +15,7 @@ public class Problem {
         return result;
     }
     public float getNotResult() {
-        return result + getRandom(-9, -2)/getRandom(8, 10);
+        return result + getRandom(-9, -2);
     }
 
     public String getProblem() {
