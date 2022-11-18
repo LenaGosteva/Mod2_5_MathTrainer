@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     boolean fl = false;
-    int counter =3;
+    int counter = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         fl = false;
