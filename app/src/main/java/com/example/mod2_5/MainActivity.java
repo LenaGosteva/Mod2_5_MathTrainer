@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private final Problem problem = new Problem();
 
     private ActivityMainBinding binding;
-    boolean fl;
+    boolean fl = false;
     int counter =3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
